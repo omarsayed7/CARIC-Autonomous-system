@@ -1,0 +1,820 @@
+<robot
+  name="Diff_Drive">
+
+<material name="Black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+ <material name="Red">
+    <color rgba="1.0 0.0 0.0 1.0"/>
+  </material>
+<material name="Purple">
+    <color rgba="1.0 0.0 1.0 1.0"/>
+  </material>
+  <material name="White">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+  <link
+    name="chassis">
+    <inertial>
+      <origin
+        xyz="0.0220555760345965 0.161947830488002 0.00246472847078245"
+        rpy="0 0 0" />
+      <mass
+        value="3.20699343904828" />
+      <inertia
+        ixx="0.13688570826991"
+        ixy="0.00644984234900775"
+        ixz="0.00140330917613081"
+        iyy="0.16416210230146"
+        iyz="-0.000333391127469874"
+        izz="0.193483332831202" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="chassis">
+    <material>Gazebo/Purple</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <!--//////////////////////////////////////////////////////////////////////////////////////////WHEELS////////////////////////////////////////////////////////////////////////////////////////-->
+
+  <link
+    name="right_front_wheel">
+    <inertial>
+      <origin
+        xyz="0 0 -0.05287"
+        rpy="0 0 0" />
+      <mass
+        value="1.8356" />
+      <inertia
+        ixx="0.0052782"
+        ixy="0"
+        ixz="6.9559E-20"
+        iyy="0.0052782"
+        iyz="-4.3944E-20"
+        izz="0.009441" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/wheel1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/wheel1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_front_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.175 -0.171 -0.063512"
+      rpy="1.5708 0.82674 -3.1416" />
+    <parent
+      link="chassis" />
+    <child
+      link="right_front_wheel" />
+    <axis
+      xyz="0 0 1" />
+	<limit effort="100" velocity="100"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>
+  <gazebo reference="right_front_wheel">
+    <material>Gazebo/Red</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <transmission name="right_front_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="right_front_wheel_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="right_front_wheel_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+
+
+
+  <link
+    name="right_back_wheel">
+    <inertial>
+      <origin
+        xyz="0 -1.3878E-17 -0.05287"
+        rpy="0 0 0" />
+      <mass
+        value="1.8356" />
+      <inertia
+        ixx="0.0052782"
+        ixy="0"
+        ixz="1.0627E-19"
+        iyy="0.0052782"
+        iyz="2.9689E-19"
+        izz="0.009441" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/wheel2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/wheel2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_back_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.175 -0.171 -0.063512"
+      rpy="1.5708 0.40594 -3.1416" />
+    <parent
+      link="chassis" />
+    <child
+      link="right_back_wheel" />
+    <axis
+      xyz="0 0 1" />
+	<limit effort="100" velocity="100"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>
+<gazebo reference="right_back_wheel">
+    <material>Gazebo/Black</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <transmission name="right_back_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="right_back_wheel_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="right_back_wheel_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+
+
+  <link
+    name="left_back_wheel">
+    <inertial>
+      <origin
+        xyz="-1.9984E-15 -1.1102E-16 -0.05287"
+        rpy="0 0 0" />
+      <mass
+        value="1.8356" />
+      <inertia
+        ixx="0.0052782"
+        ixy="9.5979E-36"
+        ixz="5.4289E-20"
+        iyy="0.0052782"
+        iyz="-8.8397E-35"
+        izz="0.009441" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/wheel3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/wheel3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_back_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.175 0.171 -0.063512"
+      rpy="1.5708 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="left_back_wheel" />
+    <axis
+      xyz="0 0 -1" />
+	<limit effort="100" velocity="100"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>
+ <gazebo reference="left_back_wheel">
+    <material>Gazebo/Black</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+<transmission name="left_back_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="left_back_wheel_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="left_back_wheel_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+
+  <link
+    name="left_front_wheel">
+    <inertial>
+      <origin
+        xyz="-1.9984E-15 9.7145E-17 -0.05287"
+        rpy="0 0 0" />
+      <mass
+        value="1.8356" />
+      <inertia
+        ixx="0.0052782"
+        ixy="-2.3237E-35"
+        ixz="5.4289E-20"
+        iyy="0.0052782"
+        iyz="4.4199E-35"
+        izz="0.009441" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/wheel4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/wheel4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_front_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.175 0.171 -0.063512"
+      rpy="1.5708 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="left_front_wheel" />
+    <axis
+      xyz="0 0 -1" />
+	<limit effort="100" velocity="100"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>
+
+ <gazebo reference="left_front_wheel">
+    <material>Gazebo/Black</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+ <transmission name="left_front_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="left_front_wheel_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="left_front_wheel_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+<!-- //////////////////////////////////////////////////////////////////////////ROS CONTROL PLUGIN/////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- -->
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+<legacyMode>false</legacyMode>
+    </plugin>
+  </gazebo>
+
+<!-- ////////////////////////////////////////////////////////////////////////////////IMU//////////////////////////////////////////////////////////////////////////////////////////// -->
+  <!--  -->
+<link name="imu_link">
+    <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+                 iyy="0.001" iyz="0.0" 
+                 izz="0.001" />
+    </inertial>     
+        <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <box size = "0.05 0.05 0.05"/> 
+                </geometry>
+        </visual>   
+    </link>
+
+<joint name="imu_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="chassis"/>
+    <child link="imu_link" />
+</joint>
+
+<gazebo>    
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+        <alwaysOn>true</alwaysOn>       
+        <bodyName>imu_link</bodyName>
+        <topicName>imu</topicName>
+        <serviceName>imu_service</serviceName>
+        <gaussianNoise>0.0</gaussianNoise>
+        <updateRate>200.0</updateRate> 
+    </plugin>
+	<sensor>
+        <imu>
+           <noise>
+               <type>gaussian</type>
+               <rate>
+                   <mean>1e-4</mean>
+                   <bias_mean>1e-4</bias_mean>
+               </rate>
+               <accel>
+                   <mean>4e-3</mean>
+                   <bias_mean>4e-3</bias_mean>
+               </accel>
+           </noise>
+        </imu> 
+        </sensor>
+</gazebo>
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////////CAMERAS/////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- CENTER CAMERA -->
+  <link
+    name="Camera_Center">
+    <inertial>
+      <origin
+        xyz="-0.023314 2.6056E-05 -0.0096081"
+        rpy="0 0 0" />
+      <mass
+        value="0.092559" />
+      <inertia
+        ixx="5.2651E-05"
+        ixy="2.5917E-08"
+        ixz="-1.1292E-05"
+        iyy="4.2146E-05"
+        iyz="2.0055E-08"
+        izz="6.5177E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/camera_c.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/camera_c.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="cameraC_joint"
+    type="fixed">
+    <origin
+      xyz="0.26303 0 0.23592"
+      rpy="-6.123E-17 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="Camera_Center" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <gazebo reference="Camera_Center">
+    <sensor type="camera" name="cameraC">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.36136</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>cameraC</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>center_camera</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <Cx>9.54542096e+02</Cx>
+         <Cy>5.31043551e+02</Cy>
+		<Fx>1.43129189e+03</Fx>
+         <Fy>1.42867337e+03</Fy>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.03307883</distortionK1>
+        <distortionK2>-0.04645629</distortionK2>
+        <distortionK3>-0.00620612</distortionK3>
+        <distortionT1>-0.00104783</distortionT1>
+        <distortionT2>-0.01454176</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+<!-- LEFT CAMERA -->
+  <link
+    name="Camera_Left">
+    <inertial>
+      <origin
+        xyz="-0.023314 1.9345E-05 -0.0096081"
+        rpy="0 0 0" />
+      <mass
+        value="0.092559" />
+      <inertia
+        ixx="5.2651E-05"
+        ixy="2.5963E-08"
+        ixz="-1.1292E-05"
+        iyy="4.2146E-05"
+        iyz="2.0062E-08"
+        izz="6.5177E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/camera_l.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/camera_l.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="cameraL_joint"
+    type="fixed">
+    <origin
+      xyz="0.25843 0.23417 0.23692"
+      rpy="-3.9358E-17 4.6905E-17 0.87266" />
+    <parent
+      link="chassis" />
+    <child
+      link="Camera_Left" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <gazebo reference="Camera_Left">
+    <sensor type="camera" name="cameraL">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.36136</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>cameraL</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>left_camera</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <Cx>9.54542096e+02</Cx>
+         <Cy>5.31043551e+02</Cy>
+		<Fx>1.43129189e+03</Fx>
+         <Fy>1.42867337e+03</Fy>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.03307883</distortionK1>
+        <distortionK2>-0.04645629</distortionK2>
+        <distortionK3>-0.00620612</distortionK3>
+        <distortionT1>-0.00104783</distortionT1>
+        <distortionT2>-0.01454176</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+<!-- RIGHT CAMERA -->
+  <link
+    name="Camera_Right">
+    <inertial>
+      <origin
+        xyz="-0.023314 1.9332E-05 -0.0096081"
+        rpy="0 0 0" />
+      <mass
+        value="0.092559" />
+      <inertia
+        ixx="5.2651E-05"
+        ixy="2.5876E-08"
+        ixz="-1.1292E-05"
+        iyy="4.2146E-05"
+        iyz="2.0049E-08"
+        izz="6.5177E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/camera_r.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://caric/meshes/camera_r.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="cameraR_joint"
+    type="fixed">
+    <origin
+      xyz="0.25737 -0.22806 0.23692"
+      rpy="-3.9358E-17 -4.6905E-17 -0.87266" />
+    <parent
+      link="chassis" />
+    <child
+      link="Camera_Right" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <gazebo reference="Camera_Right">
+    <sensor type="camera" name="cameraR">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.36136</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>cameraR</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>right_camera</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <Cx>9.54542096e+02</Cx>
+         <Cy>5.31043551e+02</Cy>
+		<Fx>1.43129189e+03</Fx>
+         <Fy>1.42867337e+03</Fy>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.03307883</distortionK1>
+        <distortionK2>-0.04645629</distortionK2>
+        <distortionK3>-0.00620612</distortionK3>
+        <distortionT1>-0.00104783</distortionT1>
+        <distortionT2>-0.01454176</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+<!-- /////////////////////////////////////////////////////////////////////////////////////////GPS//////////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- gps-->
+<joint name="gps_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 0.01" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="gps_link"/>
+  </joint>
+
+  <!-- gps -->
+  <link name="gps_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+
+<gazebo>
+    <plugin  name='gazebo_ros_gps' filename='libhector_gazebo_ros_gps.so'>
+      <updateRate>50.0</updateRate>
+      <bodyName>gps_link</bodyName>
+      <frameId>gps_link</frameId>
+      <topicName>/gps/fix</topicName>
+      <velocityTopicName>/gps/fix_velocity</velocityTopicName>
+      <referenceLatitude>-30.06022459407145675</referenceLatitude>
+      <referenceLongitude>-51.173913575780311191</referenceLongitude>
+      <referenceHeading>90</referenceHeading>
+      <referenceAltitude>10</referenceAltitude>
+      <offset>0 0 0</offset>
+      <drift>0.001 0.001 0.001</drift>
+      <gaussianNoise>0.05 0.05 0.05</gaussianNoise>
+      <velocityDrift>0.001 0.001 0.001</velocityDrift>
+      <velocityGaussianNoise>0.5 0.5 0.5</velocityGaussianNoise>
+      <!--                <drift>0.001 0.001 0.001</drift>-->
+      <!--                <gaussianNoise>0.01 0.01 0.01</gaussianNoise>-->
+      <!--                <velocityDrift>0 0 0</velocityDrift>-->
+      <!--                <velocityGaussianNoise>0.05 0.05 0.05</velocityGaussianNoise>-->
+    </plugin>
+  </gazebo>
+
+
+
+<joint name="laser_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.20 0 0.26" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="laser_scanner"/>
+  </joint>
+
+  <!-- laser -->
+  <link name="laser_scanner">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <gazebo reference="laser_scanner">
+    <sensor type="ray" name="head_hokuyo_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>120</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.570796</min_angle>
+            <max_angle>1.570796</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.8</min>
+          <max>5.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise parameters based on published spec for Hokuyo laser
+               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+               reading. -->
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+        <topicName>/scan</topicName>
+        <frameName>laser_scanner</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+</robot>

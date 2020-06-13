@@ -1,0 +1,41 @@
+<launch>
+
+<!-- these are the arguments you can pass this launch file, for example paused:=true -->
+<arg name="paused" default="false"/>
+<arg name="use_sim_time" default="true"/>
+<arg name="gui" default="true"/>
+<arg name="headless" default="false"/>
+<arg name="debug" default="false"/>
+<arg name="model" default="$(find caric)/urdf/model.urdf"/>
+<!-- We resume the logic in empty_world.launch -->
+
+<include file="$(find gazebo_ros)/launch/empty_world.launch">
+<arg name="world_name" value="$(find caric)/worlds/citysim/worlds/simple_city.world"/>
+<arg name="debug" value="$(arg debug)" />
+<arg name="gui" value="$(arg gui)" />
+<arg name="paused" value="$(arg paused)"/>
+<arg name="use_sim_time" value="$(arg use_sim_time)"/>
+<arg name="headless" value="$(arg headless)"/>
+</include>
+
+<!-- Load the URDF into the ROS Parameter Server -->
+
+<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
+
+<!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+
+<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+  args=" -x 39.747 -y 5.44 -z 5.325 -Y -3.14 -unpause -urdf -model Diff_Drive -param robot_description">
+ 
+
+
+</node> 
+
+<node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0.0 0.0 0.163 0 0 0.0 /map /odom 1000"/>
+<node pkg="tf" type="static_transform_publisher" name="chassis_to_laser" args="0.0 0.0 0.0 0 0 0.0 /chassis /laser_scanner2 1000"/>
+
+
+    <!-- publish transform -->
+    <!--node name="static_map_transform1" type="static_transform_publisher" pkg="tf" args="$(arg static_map_transform) occ_map map 100.0"/-->
+ 
+</launch>
